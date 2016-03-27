@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2016 Zhang Ge <zhgeaits@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.zhgeaits.androidopenglesdemo1;
 
 import android.opengl.GLES20;
@@ -53,6 +68,7 @@ public class Triangle {
         mVertexBuffer.put(vertices);
         mVertexBuffer.position(0);
 
+        //三个顶点的颜色
         float colors[] = new float[]
                 {
                         1, 0, 0, 0,//r
@@ -84,7 +100,7 @@ public class Triangle {
     }
 
     public void drawSelf() {
-        //制定使用某套shader程序
+        //指定使用shader程序
         GLES20.glUseProgram(mProgram);
         //初始化变换矩阵
         Matrix.setRotateM(mMMatrix, 0, 0, 0, 1, 0);
@@ -92,9 +108,9 @@ public class Triangle {
         Matrix.translateM(mMMatrix, 0, 0, 0, 1);
         //设置绕x轴旋转
         Matrix.rotateM(mMMatrix, 0, xAngle, 1, 0, 0);
-        //
+        //传递矩阵
         GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, Triangle.getFianlMatrix(mMMatrix), 0);
-        //为画笔指定顶点位置数据
+        //传递顶点位置数据
         GLES20.glVertexAttribPointer(
                 maPositionHandle,
                 3,
